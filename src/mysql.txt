@@ -1,0 +1,86 @@
+远程服务器：212.64.84.68
+Administrator
+FH6X4CTTsXY
+create table graduateProjectType(
+id bigint not null auto_increment,
+description varchar(225) not null,
+no varchar(225) null,
+remarks varchar(225) null,
+primary key(id)
+);
+
+create table school(
+id bigint not null auto_increment,
+description varchar(225) not null,
+no varchar(225) null,
+remarks varchar(225) null,
+primary key(id)
+);
+
+create table degree(
+id bigint not null auto_increment,
+description varchar(225) not null,
+no varchar(225) null,
+remarks varchar(225) null,
+primary key(id)
+);
+
+create table Department(
+id bigint not null auto_increment,
+no varchar(225) not null,
+description varchar(225) not null,
+remarks varchar(225) null,
+school_id bigint not null,
+foreign key(school_id)references school(id),
+primary key(id)
+);
+
+
+
+
+create table GraduateProject(
+id bigint not null auto_increment,
+title varchar(225) not null,
+graduateProjectCategory_id bigint not null,
+graduateProjectType_id bigint not null,
+foreign key(graduateProjectCategory_id)references graduateProjectCategory(id),
+foreign key(graduateProjectType_id)references graduateProjectType(id),
+primary key(id)
+);
+
+create table profTitle(
+    id bigint not null auto_increment,
+    description varchar(255) not null,
+    no varchar(255) not null,
+    remarks varchar(255),
+
+    primary key(id));
+
+create table teacher(
+id bigint not null auto_increment,
+name varchar(225) not null,
+proftitle_id bigint not null,
+degree_id bigint not null,
+department_id bigint not null,
+foreign key(proftitle_id) references proftitle(id),
+foreign key(degree_id) references degree(id),
+foreign key(department_id) references department(id),
+primary key(id)
+);
+
+create table user(
+id bigint not null auto_increment,
+username varchar(225) not null unique,
+password varchar(225) not null,
+loginTime date,
+teacher_id bigint not null,
+foreign key(teacher_id)references teacher(id),
+primary key(id)
+);
+set global time_zone = '+8:00';
+
+
+alter table teacher add(
+    no varchar(255) not null
+);
+alter table user add constraint unique (username);
